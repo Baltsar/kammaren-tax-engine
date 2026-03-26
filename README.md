@@ -171,6 +171,22 @@ Tax law changes? The engine needs annual updates to `tax-constants-2026.ts` when
 
 ## License
 
-AGPL-3.0. Use it freely. If you build a service on it, open your source too.
+This engine is dual-licensed.
+
+### AGPL-3.0 (free)
+
+Use it for anything where you can open your source. If you build a web service, SaaS product, or API on top of this engine, AGPL-3.0 requires you to publish your full application source under the same license.
+
+This covers: personal projects, open source tools, self-hosted internal tools, academic use.
+
+### Commercial license
+
+If you need to embed this engine in a **closed-source product or service** — a payroll platform, accounting SaaS, fintech app — without open-sourcing your codebase, you need a commercial license.
+
+Contact: [gustaf@kammaren.nu](mailto:gustaf@kammaren.nu)
+
+Commercial licenses include no copyleft restrictions, priority support for annual tax constant updates, and the right to white-label the engine.
+
+---
 
 Built by [Gustaf Baltsar Garnow](https://kammaren.nu) as part of [KAMMAREN](https://kammaren.nu) — financial sovereignty for Swedish AB owners.
