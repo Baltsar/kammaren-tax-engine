@@ -1,0 +1,29 @@
+{
+  "name": "kammaren-tax-engine",
+  "version": "1.0.0",
+  "description": "Deterministic Swedish 3:12 tax optimization engine for sole-owner AB companies. Verified against Skatteverket's official tax table.",
+  "license": "AGPL-3.0-only",
+  "author": "Gustaf Baltsar Garnow <gustaf@kammaren.nu>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Baltsar/kammaren-tax-engine"
+  },
+  "main": "src/tax-optimizer.ts",
+  "scripts": {
+    "test": "npx tsx tests/tax-optimizer.test.ts",
+    "verify": "npx tsx tests/tax-optimizer-verify.ts",
+    "verify:skv": "npx tsx tests/tax-tabell-verify.ts",
+    "test:all": "npm run test && npm run verify && npm run verify:skv"
+  },
+  "keywords": [
+    "swedish-tax", "3:12", "fåmansbolag", "skatteoptimering",
+    "tax-optimization", "aktiebolag", "utdelning", "K10"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
