@@ -48,6 +48,72 @@ The SKV Table 30 test compares our `calculateIncomeTax()` output against every r
 
 **Safety buffer.** 1% of profit (clamped 5K–25K) is reserved and excluded from dividend recommendations. All displayed figures use post-buffer amounts.
 
+## Use as MCP server
+
+This engine ships as a ready-to-use MCP server. Any MCP-compatible AI client (Claude Desktop, Cursor, VS Code with Continue, etc.) can call it directly.
+
+### Install
+
+```bash
+npm install -g kammaren-tax-engine
+```
+
+Or use without installing via `npx`:
+
+```json
+"command": "npx",
+"args": ["-y", "kammaren-tax-engine"]
+```
+
+### Claude Desktop
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+
+```json
+{
+  "mcpServers": {
+    "kammaren-tax-engine": {
+      "command": "kammaren-tax-engine"
+    }
+  }
+}
+```
+
+Restart Claude Desktop. The tool `optimize_312` will appear in Claude's tool list.
+
+### Cursor / VS Code
+
+Add to your MCP config (`.cursor/mcp.json` or `.vscode/mcp.json`):
+
+```json
+{
+  "servers": {
+    "kammaren-tax-engine": {
+      "type": "stdio",
+      "command": "kammaren-tax-engine"
+    }
+  }
+}
+```
+
+### Available tool
+
+| Tool | Description |
+|------|-------------|
+| `optimize_312` | Returns all five salary/dividend strategies for a Swedish sole-owner AB |
+
+**Required inputs:** `profit_before_salary`, `municipality`, `liquid_assets`, `current_monthly_salary`, `church_member`
+
+**Optional:** `saved_dividend_space`, `external_income`, `total_payroll_others`, `salary_strategy`, `omkostnadsbelopp`, `safety_buffer`
+
+Example prompt once connected:
+
+> "Mitt bolag har 1 500 000 kr i vinst före lön, jag tar 55 000/mån, bor i Stockholm och är inte kyrkomedlem. Vad är optimal lön och utdelning för 2026?"
+
+The engine returns exact figures for all five strategies — no AI math, no guessing.
+
+---
+
 ## Quick start
 
 ```bash

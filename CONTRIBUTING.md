@@ -1,5 +1,9 @@
 # Contributing
 
+## Contributor License Agreement
+
+All pull requests require CLA acceptance. Tick the checkbox in the PR description when you open a PR. See [CLA.md](CLA.md) for the full text.
+
 ## Tax calculation bugs
 
 If you believe a calculation is wrong:

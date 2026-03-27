@@ -8,22 +8,49 @@
     "type": "git",
     "url": "https://github.com/Baltsar/kammaren-tax-engine"
   },
-  "main": "src/tax-optimizer.ts",
+  "type": "module",
+  "main": "./build/tax-optimizer.js",
+  "exports": {
+    ".": "./build/tax-optimizer.js",
+    "./optimize": "./build/tax-optimizer.js"
+  },
+  "bin": {
+    "kammaren-tax-engine": "./build/mcp-server.js"
+  },
+  "files": [
+    "build",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "test": "npx tsx tests/tax-optimizer.test.ts",
     "verify": "npx tsx tests/tax-optimizer-verify.ts",
     "verify:skv": "npx tsx tests/tax-tabell-verify.ts",
-    "test:all": "npm run test && npm run verify && npm run verify:skv"
+    "test:all": "npm run test && npm run verify && npm run verify:skv",
+    "build": "tsc && chmod 755 build/mcp-server.js",
+    "postbuild": "node --input-type=commonjs -e 'const fs=require(\"fs\");const d=\"./build\";for(const f of fs.readdirSync(d).filter(f=>f.endsWith(\".js\"))){const p=d+\"/\"+f;const c=fs.readFileSync(p,\"utf8\");const n=c.replace(/from \"(\\.[^\"]+)\"/g,(m,x)=>x.endsWith(\".js\")?m:`from \"${x}.js\"`);if(n!==c)fs.writeFileSync(p,n)}'",
+    "prepare": "npm run build"
   },
   "keywords": [
-    "swedish-tax", "3:12", "fåmansbolag", "skatteoptimering",
-    "tax-optimization", "aktiebolag", "utdelning", "K10"
+    "swedish-tax",
+    "3:12",
+    "fåmansbolag",
+    "skatteoptimering",
+    "tax-optimization",
+    "aktiebolag",
+    "utdelning",
+    "K10"
   ],
   "engines": {
     "node": ">=18"
   },
   "devDependencies": {
+    "@types/node": "^25.5.0",
     "tsx": "^4.0.0",
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.28.0",
+    "zod": "^3.25.76"
   }
 }
