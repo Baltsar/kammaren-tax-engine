@@ -515,7 +515,10 @@ function computeStrategyE(
   const warnings: string[] = [];
   if (dividendOver > 0) {
     warnings.push(
-      "Utdelning över gränsbeloppet ger mer i fickan idag men bygger inte SGI, pension eller sjukpenningunderlag. Överväg privat sjukförsäkring."
+      "Utdelning over gransbeloppet (" + dividendOver + " kr) bygger inte SGI, " +
+      "allman pension, sjukpenning, foraldrapenning eller a-kassa. " +
+      "Din sociala trygghet baseras enbart pa lonen " + salary + " kr/ar " +
+      "(" + Math.round(salary / 12) + " kr/man). Overvag privat sjukforsakring."
     );
   }
 
@@ -605,6 +608,19 @@ export function optimize(
   const chosenTarget = targets[input.salary_strategy];
   const adjustedTarget = Math.max(0, chosenTarget - input.external_income);
   const salary = Math.max(0, round(Math.min(adjustedTarget, maxAffordable)));
+
+  if (input.external_income > 0) {
+    const totalIncome = salary + input.external_income;
+    if (totalIncome > c.BRYTPUNKT * 0.9) {
+      warnings.push(
+        "Din externa inkomst (" + input.external_income + " kr) plus rekommenderad lon " +
+        "(" + salary + " kr) ger en total tjänsteinkomst pa " + totalIncome + " kr. " +
+        (totalIncome > c.BRYTPUNKT
+          ? "Det overstiger brytpunkten (" + c.BRYTPUNKT + " kr) och utloser statlig skatt (20%)."
+          : "Det narmar sig brytpunkten (" + c.BRYTPUNKT + " kr). Kontrollera marginalskatt.")
+      );
+    }
+  }
 
   const employerFees = round(salary * c.EMPLOYER_FEE_RATE);
   const totalSalaryCost = salary + employerFees;
@@ -697,6 +713,15 @@ export function optimize(
       remainingProfit, totalDividendSpace, input.liquid_assets, c
     );
     pfondRecommended = appliedPfond > 0;
+  }
+
+  if (input.planned_downtime_within_3_years) {
+    warnings.push(
+      "Planerad trada: gransbeloppet fryser under karensperioden (4 ar). " +
+      "Sparat utdelningsutrymme kan inte utnyttjas under tradan. " +
+      "Lonebaserat underlag kraver aktiv verksamhet. " +
+      "Konsultera radgivare innan beslut om trada."
+    );
   }
 
   // ── STEP 4: CORPORATE TAX & EQUITY (pfond reduces tax base) ──
@@ -967,4 +992,5 @@ const DISCLAIMER =
   "för inkomståret 2026. Det utgör inte skatterådgivning, juridisk rådgivning " +
   "eller revisionsutlåtande. Beräkningarna bygger på förenklade modeller. " +
   "Användaren bär fullt deklarationsansvar. Konsultera alltid redovisningskonsult " +
-  "eller auktoriserad revisor innan inkomstdeklaration.";
+  "eller auktoriserad revisor innan inkomstdeklaration. " +
+  "Buggar/feedback: info@kammaren.nu";

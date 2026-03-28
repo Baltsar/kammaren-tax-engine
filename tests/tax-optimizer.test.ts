@@ -10,7 +10,7 @@ import {
   TaxOptimizerInput,
 } from "../src/tax-optimizer";
 import { TAX_CONSTANTS_2026 } from "../src/tax-constants-2026";
-import { ResolvedRates } from "../src/kommun-skattesatser-2026";
+import { ResolvedRates, KOMMUN_DATA, resolveRates } from "../src/kommun-skattesatser-2026";
 import { prepareInput } from "../src/tax-optimizer-prepare";
 
 // ── SIMPLE TEST RUNNER ──
@@ -1005,6 +1005,43 @@ console.log("\n── GOLDEN CASE E3: Utdelningsmax, Dorotea 35.65%, 1.5M ──
   // E måste ge mer än balanced (A) i Dorotea
   assertTrue(e.total_in_pocket > r.total_in_pocket, "E3: E (819_157) > A (751_133) Dorotea");
   assertClose(r.total_in_pocket, 751_133, "E3 balanced (A) pocket Dorotea för referens");
+}
+
+// ── T14: KOMMUN-LOOKUP 290 ──
+
+{
+  console.log("\n── T14: Kommun-lookup — alla 290 kommuner ──");
+  const keys = Object.keys(KOMMUN_DATA);
+  assertTrue(keys.length === 290, `KOMMUN_DATA.length === 290 (got ${keys.length})`);
+  for (const key of keys) {
+    let ok = true;
+    try { resolveRates(key, false); } catch { ok = false; }
+    assertTrue(ok, `resolveRates("${key}", false) kastar inte`);
+  }
+  // Spot-check verified KI values (SCB 2026)
+  const spotCheck: [string, number][] = [
+    ["stockholm",       0.3055],
+    ["göteborg",        0.3327],
+    ["malmö",           0.3295],
+    ["dorotea",         0.3565],
+    ["huddinge",        0.3171],
+    ["dals-ed",         0.3469],
+    ["malung-sälen",    0.3445],
+    ["upplands-bro",    0.3173],
+    ["lilla edet",      0.3385],
+    ["upplands väsby",  0.3175],
+    ["östra göinge",    0.3217],
+  ];
+  for (const [k, expectedKI] of spotCheck) {
+    const r = resolveRates(k, false);
+    assertClose(r.KI, expectedKI, `KI for ${k}`, 0.0001);
+  }
+  // Verify key Stockholm municipalities are present (no crash)
+  for (const k of ["danderyd", "täby", "nacka", "solna", "lidingö", "sollentuna", "järfälla"]) {
+    let ok = true;
+    try { resolveRates(k, false); } catch { ok = false; }
+    assertTrue(ok, `resolveRates("${k}") finns i lookup`);
+  }
 }
 
 // ── RESULTS ──
