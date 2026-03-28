@@ -716,7 +716,7 @@ function tier8(): void {
     // 11. Rimlighetskontroll marginalskatt (endast när dividend_over > 0)
     if (e.dividend_over_space > 0) {
       check(
-        e.effective_tax_rate_over > 0.30 && e.effective_tax_rate_over < 0.60,
+        e.effective_tax_rate_over >= 0.30 && e.effective_tax_rate_over < 0.60,
         `${label} E.effective_tax_rate_over(${e.effective_tax_rate_over}) utanför [0.30, 0.60]`
       );
     }
@@ -796,7 +796,7 @@ function tierGoldenE(): void {
   // Effektiv skattesats på IL 57:20-utdelning: rimligt intervall
   if (e4.dividend_over_space > 0) {
     check(
-      e4.effective_tax_rate_over > 0.30 && e4.effective_tax_rate_over < 0.60,
+      e4.effective_tax_rate_over >= 0.30 && e4.effective_tax_rate_over < 0.60,
       `E4 effective_tax_rate_over(${e4.effective_tax_rate_over}) outside [0.30, 0.60]`
     );
   }

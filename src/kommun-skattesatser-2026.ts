@@ -101,6 +101,48 @@ export const KOMMUN_DATA: Record<string, KommunSkattesats> = {
     begravningsavgift: 0.00292,
     kyrkoavgift_snitt: 0.0100,
   },
+  "huddinge": {
+    kommun: "Huddinge",
+    kommunalskatt: 0.3171,
+    begravningsavgift: 0.00292,
+    kyrkoavgift_snitt: 0.0100,
+  },
+  "dals-ed": {
+    kommun: "Dals-Ed",
+    kommunalskatt: 0.3469,
+    begravningsavgift: 0.00292,
+    kyrkoavgift_snitt: 0.0100,
+  },
+  "malung-sälen": {
+    kommun: "Malung-Sälen",
+    kommunalskatt: 0.3445,
+    begravningsavgift: 0.00292,
+    kyrkoavgift_snitt: 0.0100,
+  },
+  "upplands-bro": {
+    kommun: "Upplands-Bro",
+    kommunalskatt: 0.3173,
+    begravningsavgift: 0.00292,
+    kyrkoavgift_snitt: 0.0100,
+  },
+  "lilla edet": {
+    kommun: "Lilla Edet",
+    kommunalskatt: 0.3385,
+    begravningsavgift: 0.00292,
+    kyrkoavgift_snitt: 0.0100,
+  },
+  "upplands väsby": {
+    kommun: "Upplands Väsby",
+    kommunalskatt: 0.3175,
+    begravningsavgift: 0.00292,
+    kyrkoavgift_snitt: 0.0100,
+  },
+  "östra göinge": {
+    kommun: "Östra Göinge",
+    kommunalskatt: 0.3217,
+    begravningsavgift: 0.00292,
+    kyrkoavgift_snitt: 0.0100,
+  },
 };
 
 export interface ResolvedRates {
