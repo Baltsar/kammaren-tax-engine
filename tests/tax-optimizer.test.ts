@@ -1021,8 +1021,8 @@ console.log("\n── GOLDEN CASE E3: Utdelningsmax, Dorotea 35.65%, 1.5M ──
   // Spot-check verified KI values (SCB 2026)
   const spotCheck: [string, number][] = [
     ["stockholm",       0.3055],
-    ["göteborg",        0.3327],
-    ["malmö",           0.3295],
+    ["göteborg",        0.3260],
+    ["malmö",           0.3242],
     ["dorotea",         0.3565],
     ["huddinge",        0.3171],
     ["dals-ed",         0.3469],
