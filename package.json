@@ -1,6 +1,6 @@
 {
   "name": "kammaren-tax-engine",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Deterministic Swedish 3:12 tax optimization engine for sole-owner AB companies. Verified against Skatteverket's official tax table.",
   "license": "AGPL-3.0-only",
   "author": "Gustaf Baltsar Garnow <gustaf@kammaren.nu>",
